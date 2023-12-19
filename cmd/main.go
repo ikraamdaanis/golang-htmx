@@ -17,11 +17,11 @@ func main() {
 
 	e.Renderer = t
 
-	e.Static("/", "assets")
+	e.Static("/", "public")
 	e.GET("/", Homepage)
 	e.GET("/hello", Hello)
 
-	e.Logger.Fatal(e.Start(":5000"))
+	e.Logger.Fatal(e.Start(":5001"))
 }
 
 type Template struct {
