@@ -1,2 +1,5 @@
+install-air:
+	go get -u github.com/cosmtrek/air
+
 run: 
-	go run cmd/main.go
+	air
