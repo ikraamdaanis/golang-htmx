@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 
+	views "github.com/ikraamdaanis/golang-htmx/templates"
 	"github.com/labstack/echo/v4"
 )
 
@@ -37,5 +38,11 @@ func Homepage(c echo.Context) error {
 }
 
 func Hello(c echo.Context) error {
-	return c.Render(http.StatusOK, "hello", "World")
+	// data := map[string]interface{}{
+	// 	"message": "This is a message",
+	// }
+
+	component := views.Test("Ikraam").Render(c.Request().Context(), c.Response())
+
+	return component
 }

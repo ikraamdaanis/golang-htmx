@@ -1,5 +1,6 @@
-install-air:
+install:
 	go get -u github.com/cosmtrek/air
+	go install github.com/a-h/templ/cmd/templ@latest
 
 run: 
 	air
