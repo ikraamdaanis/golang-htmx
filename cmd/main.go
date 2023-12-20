@@ -1,7 +1,7 @@
 package main
 
 import (
-	views "github.com/ikraamdaanis/golang-htmx/templates"
+	views "github.com/ikraamdaanis/golang-htmx/views"
 	"github.com/labstack/echo/v4"
 )
 
