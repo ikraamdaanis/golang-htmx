@@ -2,6 +2,8 @@ package views
 
 templ Test(name string) {
 	@base("Hello page") {
+		@Header()
 		<div>Hello, { name }, this is a test for </div>
+		<a href="/">Go to Index</a>
 	}
 }
