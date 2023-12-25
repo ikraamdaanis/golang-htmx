@@ -1,0 +1,14 @@
+{{ define "base" }}
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>{{ .Title }}</title>
+  </head>
+  <body class="bg-zinc-900">
+    {{block "content" .}}{{end}}
+  </body>
+</html>
+{{ end }}

@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"net/http"
 	"os"
+	"text/template"
 
 	initializers "github.com/ikraamdaanis/golang-htmx/internal"
 	types "github.com/ikraamdaanis/golang-htmx/pkg/models"
-	views "github.com/ikraamdaanis/golang-htmx/views"
 	"github.com/labstack/echo/v4"
 
 	_ "github.com/lib/pq"
@@ -17,23 +19,35 @@ func init() {
 	initializers.ConnectDatabase()
 }
 
+var templates = template.Must(template.ParseGlob("views/*.html"))
+
+func renderTemplate(c echo.Context, tmpl string, data interface{}) error {
+	err := templates.ExecuteTemplate(c.Response().Writer, tmpl+".html", data)
+	if err != nil {
+		fmt.Println("Error rendering template:", err)
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	return nil
+}
+
+func homeHandler(c echo.Context) error {
+	return renderTemplate(c, "home", map[string]interface{}{"Title": "Home Page", "ButtonText": "Home Button"})
+}
+
+func indexHandler(c echo.Context) error {
+	return renderTemplate(c, "index", map[string]interface{}{"Title": "INdex Page", "ButtonText": "Index Button"})
+}
+
 func main() {
 	e := echo.New()
 
 	e.Static("/", "public")
-	e.GET("/", Homepage)
-	e.GET("/hello", Hello)
+	e.GET("/", indexHandler)
+	e.GET("/test", homeHandler)
+
 	e.GET("/api/test", Test)
 
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
-}
-
-func Homepage(c echo.Context) error {
-	return views.Index().Render(c.Request().Context(), c.Response())
-}
-
-func Hello(c echo.Context) error {
-	return views.Test("Ikraam").Render(c.Request().Context(), c.Response())
 }
 
 func Test(c echo.Context) error {
