@@ -8,6 +8,7 @@ import (
 	"text/template"
 
 	initializers "github.com/ikraamdaanis/golang-htmx/internal"
+	"github.com/ikraamdaanis/golang-htmx/pkg/handler"
 	types "github.com/ikraamdaanis/golang-htmx/pkg/models"
 	"github.com/labstack/echo/v4"
 
@@ -46,6 +47,7 @@ func main() {
 	e.GET("/test", homeHandler)
 
 	e.GET("/api/test", Test)
+	e.POST("/api/auth/login", handler.Login)
 
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
