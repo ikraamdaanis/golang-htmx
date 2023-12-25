@@ -5,6 +5,7 @@ import (
 	"os"
 
 	initializers "github.com/ikraamdaanis/golang-htmx/internal"
+	types "github.com/ikraamdaanis/golang-htmx/pkg/models"
 	views "github.com/ikraamdaanis/golang-htmx/views"
 	"github.com/labstack/echo/v4"
 
@@ -35,28 +36,15 @@ func Hello(c echo.Context) error {
 	return views.Test("Ikraam").Render(c.Request().Context(), c.Response())
 }
 
-type FormData struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Published   bool   `json:"published"`
-	Content     string `json:"content"`
-	Description string `json:"description"`
-	UserId      string `json:"user_id"`
-	Views       int    `json:"views"`
-	CreatedAt   string `json:"created_at"`
-	UpdatedAt   string `json:"updated_at"`
-	// Add more fields based on your database schema
-}
-
 func Test(c echo.Context) error {
 	rows, _ := initializers.DB.Query("SELECT id, name, published, content, description, user_id, views, created_at, updated_at FROM forms")
 
 	defer rows.Close()
 
-	var formDataList []FormData
+	var formDataList []types.Form
 
 	for rows.Next() {
-		var formData FormData
+		var formData types.Form
 		err := rows.Scan(&formData.ID, &formData.Name, &formData.Published, &formData.Content, &formData.Description, &formData.UserId, &formData.Views, &formData.CreatedAt, &formData.UpdatedAt)
 		if err != nil {
 			log.Fatal(err)
