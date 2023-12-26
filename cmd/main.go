@@ -36,7 +36,7 @@ func homeHandler(c echo.Context) error {
 }
 
 func indexHandler(c echo.Context) error {
-	return renderTemplate(c, "index", map[string]interface{}{"Title": "INdex Page", "ButtonText": "Index Button"})
+	return renderTemplate(c, "index", map[string]interface{}{"Title": "Index Page", "ButtonText": "Index Button"})
 }
 
 func main() {
