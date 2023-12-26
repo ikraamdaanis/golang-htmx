@@ -15,6 +15,7 @@ type LoginBody struct {
 
 func Login(c echo.Context) error {
 	loginBody := new(LoginBody)
+
 	if err := c.Bind(loginBody); err != nil {
 		return c.String(http.StatusBadRequest, "bad request")
 	}

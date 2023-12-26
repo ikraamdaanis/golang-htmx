@@ -1,11 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net/http"
 	"os"
-	"text/template"
 
 	initializers "github.com/ikraamdaanis/golang-htmx/internal"
 	"github.com/ikraamdaanis/golang-htmx/pkg/handler"
@@ -20,31 +17,11 @@ func init() {
 	initializers.ConnectDatabase()
 }
 
-var templates = template.Must(template.ParseGlob("views/*.html"))
-
-func renderTemplate(c echo.Context, tmpl string, data interface{}) error {
-	err := templates.ExecuteTemplate(c.Response().Writer, tmpl+".html", data)
-	if err != nil {
-		fmt.Println("Error rendering template:", err)
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-	return nil
-}
-
-func homeHandler(c echo.Context) error {
-	return renderTemplate(c, "home", map[string]interface{}{"Title": "Home Page", "ButtonText": "Home Button"})
-}
-
-func indexHandler(c echo.Context) error {
-	return renderTemplate(c, "index", map[string]interface{}{"Title": "Index Page", "ButtonText": "Index Button"})
-}
-
 func main() {
 	e := echo.New()
 
 	e.Static("/", "public")
-	e.GET("/", indexHandler)
-	e.GET("/test", homeHandler)
+	e.GET("/", handler.Homepage)
 
 	e.GET("/api/test", Test)
 	e.POST("/api/auth/login", handler.Login)

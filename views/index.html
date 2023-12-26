@@ -1,3 +1,8 @@
-{{template "base2" .}} {{define "content"}}
-<h1>Welcome to Index</h1>
-{{ template "button" . }} {{end}}
+{{template "base" .}} {{define "content"}}
+<main class="flex justify-center">
+  <section class="mx-auto max-w-screen-xl flex flex-col gap-4 pt-10">
+    <h1 class="text-6xl text-zinc-50 font-bold">Welcome to Index</h1>
+    {{ template "button" . }}
+  </section>
+</main>
+{{end}}
